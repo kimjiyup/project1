@@ -1,3 +1,7 @@
+#include <vector>
+
+using std::vector;
+
 class Page {
     public:
         Page(int x,int y,int width,int height,int id,char content):x(x),y(y),width(width),height(height),id(id),content(content)
