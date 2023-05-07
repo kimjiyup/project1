@@ -5,6 +5,7 @@
 
 using std::endl;
 using std::ofstream;
+using std::vector;
 
 class Board {
     public:
@@ -86,12 +87,16 @@ void Board::print_job(int job_idx, char job_type, int id) {
 
 
 void Board::insert_page(int x, int y, int width, int height, int id, int content) {
-    pages.push_back(x,y,width,height,id,char(content));
-    for(int i=y;i<y+height;i++) {
-        for(int j=x;j<x+width;j++) {
-            board[i*width+j]=char(content);
+    Page new_page(x, y, width, height, id, (char)content);
+
+    for (int h = y; h < y + height; h++) {
+        for (int w = x; w < x + width; w++) {
+            board[h * this->width + w] = new_page.get_content();
         }
     }
+
+    pages.push_back(new_page);
+
     print_board();
 }
 
