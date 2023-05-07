@@ -1,4 +1,5 @@
 #include <fstream>
+#include <vector>
 
 #include "page.h"
 
@@ -22,7 +23,8 @@ class Board {
     private:
         int num_jobs, width, height; 
         ofstream& output; 
-        char* board; 
+        char* board;
+        vector<Page> pages;
 };
 
 
@@ -84,7 +86,13 @@ void Board::print_job(int job_idx, char job_type, int id) {
 
 
 void Board::insert_page(int x, int y, int width, int height, int id, int content) {
-    // insert page
+    pages.push_back(x,y,width,height,id,char(content));
+    for(int i=y;i<y+height;i++) {
+        for(int j=x;j<x+width;j++) {
+            board[i*width+j]=char(content);
+        }
+    }
+    print_board();
 }
 
 void Board::delete_page(int id) {
